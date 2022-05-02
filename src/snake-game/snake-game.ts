@@ -1,4 +1,4 @@
-import { Snake } from "./snake"
+import { SnakeBody } from "./snake-body"
 
 export interface GameConfig {
   width: number,
@@ -17,14 +17,14 @@ export class Game {
   config: GameConfig
   canvas: CanvasRenderingContext2D
 
-  snake: Snake
+  snake: SnakeBody
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
     Game.config = config
 
     this.config = config
     this.canvas = canvas.getContext('2d')
-    this.snake = Snake.createSnake(config.snakeLength, config.width / config.partSize / 2, config.height / config.partSize / 2)
+    this.snake = SnakeBody.createSnake(config.snakeLength, config.width / config.partSize / 2, config.height / config.partSize / 2)
   }
 
   render(ctx: CanvasRenderingContext2D) {

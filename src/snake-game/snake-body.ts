@@ -3,7 +3,7 @@ import { Game } from './snake-game';
 import { SnakeHead } from "./snake-head";
 import { SnakePart } from "./snake-part";
 
-export class Snake {
+export class SnakeBody {
 
   snake: Array<SnakePart>
   snakeHead: SnakeHead
@@ -20,7 +20,7 @@ export class Snake {
   }
 
   static createSnake(length: number, x: number, y: number) {
-    const snake = new Snake(x, y)
+    const snake = new SnakeBody(x, y)
 
     for (let i = 0; i < length; i++) {
       snake.addPart(new SnakePart(x, y))
