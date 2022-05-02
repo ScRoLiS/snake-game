@@ -1,4 +1,5 @@
 import { Key, DirectionType, Direction } from './constants';
+import { Game } from './snake-game';
 import { SnakeHead } from "./snake-head";
 import { SnakePart } from "./snake-part";
 
@@ -45,6 +46,25 @@ export class Snake {
     this.direction = direction
   }
 
+  checkWallCollision() {
+
+    const { width, height, partSize } = Game.config
+    const rightBorder = width / partSize - 1
+    const bottomBorder = height / partSize - 1
+
+    if (this.snakeHead.getX() < 0)
+      this.snakeHead.setX(rightBorder)
+
+    if (this.snakeHead.getX() > rightBorder)
+      this.snakeHead.setX(0)
+
+    if (this.snakeHead.getY() < 0)
+      this.snakeHead.setY(bottomBorder)
+
+    if (this.snakeHead.getY() > bottomBorder)
+      this.snakeHead.setY(0)
+  }
+
   moveUp() {
     this.snakeHead.setY(this.snakeHead.getY() - 1);
   }
@@ -78,6 +98,8 @@ export class Snake {
       default:
         break;
     }
+
+    this.checkWallCollision()
 
     for (let i = this.snake.length - 1; i >= 1; i--) {
       this.snake[i].setY(this.snake[i - 1].getY())
