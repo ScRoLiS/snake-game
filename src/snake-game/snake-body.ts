@@ -50,6 +50,9 @@ export class SnakeBody {
     return this.snake[this.snake.length - 1].getY()
   }
 
+  getLength(): number {
+    return this.snake.length
+  }
 
   setDirection(direction: Direction) {
     this.direction = direction
