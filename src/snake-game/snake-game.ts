@@ -38,7 +38,8 @@ export class Game {
   clearCanvas(ctx: CanvasRenderingContext2D) {
     const { width, height } = this.config
 
-    ctx.clearRect(0, 0, width, height)
+    ctx.fillStyle = '#879272'
+    ctx.fillRect(0, 0, width, height)
   }
 
   renderGrid(ctx: CanvasRenderingContext2D) {
