@@ -125,16 +125,20 @@ export class SnakeBody {
   keyPressed(e: KeyboardEvent) {
     switch (e.key) {
       case Key.UP:
-        this.setDirection(DirectionType.UP)
+        if (this.direction !== DirectionType.DOWN)
+          this.setDirection(DirectionType.UP)
         break
       case Key.DOWN:
-        this.setDirection(DirectionType.DOWN)
+        if (this.direction !== DirectionType.UP)
+          this.setDirection(DirectionType.DOWN)
         break
       case Key.LEFT:
-        this.setDirection(DirectionType.LEFT)
+        if (this.direction !== DirectionType.RIGHT)
+          this.setDirection(DirectionType.LEFT)
         break
       case Key.RIGHT:
-        this.setDirection(DirectionType.RIGHT)
+        if (this.direction !== DirectionType.LEFT)
+          this.setDirection(DirectionType.RIGHT)
         break
       default: break
     }
