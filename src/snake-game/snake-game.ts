@@ -45,7 +45,8 @@ export class Game {
   renderGrid(ctx: CanvasRenderingContext2D) {
     const { partSize: snakeSize, width, height } = this.config
 
-    ctx.fillStyle = '#000000'
+    ctx.strokeStyle = '#000000'
+    ctx.lineWidth = 1.5
     for (let i = 0; i <= width / snakeSize; i++) {
       ctx.beginPath();
       ctx.moveTo(i * snakeSize, 0);
