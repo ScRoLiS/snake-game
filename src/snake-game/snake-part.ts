@@ -14,12 +14,13 @@ export class SnakePart {
 
   render(ctx: CanvasRenderingContext2D) {
     const { partSize } = Game.config
+    const borderSize = 2.5
 
     ctx.fillStyle = this.color
     ctx.fillRect(this.x * partSize, this.y * partSize, partSize, partSize)
     ctx.strokeStyle = '#879272'
-    ctx.lineWidth = 2.5
-    ctx.strokeRect(this.x * partSize + 5, this.y * partSize + 5, partSize - 10, partSize - 10)
+    ctx.lineWidth = borderSize
+    ctx.strokeRect(this.x * partSize + borderSize * 2, this.y * partSize + borderSize * 2, partSize - borderSize * 4, partSize - borderSize * 4)
     ctx.lineWidth = 2.5
     ctx.strokeRect(this.x * partSize, this.y * partSize, partSize, partSize)
   }
