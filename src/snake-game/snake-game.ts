@@ -21,6 +21,7 @@ export class Game {
 
   snake: SnakeBody
   food: SnakeFood
+  intervalId: NodeJS.Timer
   score: number = 0
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
@@ -46,8 +47,6 @@ export class Game {
       this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
       this.food.generateNewPosition(this.snake)
       this.score++
-      console.log(this.score);
-      
     }
 
     if (this.config.grid)
@@ -81,7 +80,15 @@ export class Game {
   }
 
   start() {
-    setInterval(() => {
+    const { width, height, partSize } = this.config
+
+    console.log((width / partSize) * (height / partSize));
+
+    this.intervalId = setInterval(() => {
+      if (this.score + this.snake.getLength() >= (width / partSize) * (height / partSize)) {
+        console.log('WIN!', 'SCORE:', this.score + this.snake.getLength());
+        clearInterval(this.intervalId)
+      }
       this.render(this.canvas)
     }, this.config.gameSpeed)
   }
