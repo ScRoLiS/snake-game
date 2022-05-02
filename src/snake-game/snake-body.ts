@@ -1,3 +1,4 @@
+import { SnakeFood } from './snake-food';
 import { Key, DirectionType, Direction } from './constants';
 import { Game } from './snake-game';
 import { SnakeHead } from "./snake-head";
@@ -41,13 +42,26 @@ export class SnakeBody {
     this.snake.push(part)
   }
 
+  getLastX(): number {
+    return this.snake[this.snake.length - 1].getX()
+  }
+
+  getLastY(): number {
+    return this.snake[this.snake.length - 1].getY()
+  }
+
 
   setDirection(direction: Direction) {
     this.direction = direction
   }
 
-  checkWallCollision() {
+  checkFoodCollision(food: SnakeFood): boolean {
+    if (this.snakeHead.getX() === food.getX() && this.snakeHead.getY() === food.getY())
+      return true
+    return false
+  }
 
+  checkWallCollision() {
     const { width, height, partSize } = Game.config
     const rightBorder = width / partSize - 1
     const bottomBorder = height / partSize - 1
