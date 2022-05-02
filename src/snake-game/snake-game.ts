@@ -1,4 +1,6 @@
 import { SnakeBody } from "./snake-body"
+import { SnakeFood } from "./snake-food"
+import { SnakePart } from "./snake-part"
 
 export interface GameConfig {
   width: number,
@@ -18,18 +20,35 @@ export class Game {
   canvas: CanvasRenderingContext2D
 
   snake: SnakeBody
+  food: SnakeFood
+  score: number = 0
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
+    const startSnakeX = config.width / config.partSize / 2
+    const startSnakeY = config.height / config.partSize / 2
+
     Game.config = config
 
     this.config = config
     this.canvas = canvas.getContext('2d')
-    this.snake = SnakeBody.createSnake(config.snakeLength, config.width / config.partSize / 2, config.height / config.partSize / 2)
+    this.snake = SnakeBody.createSnake(config.snakeLength, startSnakeX, startSnakeY)
+    this.food = new SnakeFood()
+
+    this.food.generateNewPosition(this.snake)
   }
 
   render(ctx: CanvasRenderingContext2D) {
     this.clearCanvas(ctx)
+    this.food.render(ctx)
     this.snake.render(ctx)
+
+    if (this.snake.checkFoodCollision(this.food)) {
+      this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
+      this.food.generateNewPosition(this.snake)
+      this.score++
+      console.log(this.score);
+      
+    }
 
     if (this.config.grid)
       this.renderGrid(ctx)
@@ -62,7 +81,6 @@ export class Game {
   }
 
   start() {
-    this.render(this.canvas)
     setInterval(() => {
       this.render(this.canvas)
     }, this.config.gameSpeed)
