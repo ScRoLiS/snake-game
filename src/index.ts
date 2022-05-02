@@ -6,9 +6,9 @@ const game = new Game(canvas, {
   width: parseInt(canvas.getAttribute('width')),
   height: parseInt(canvas.getAttribute('height')),
   partSize: 20,
-  snakeLength: 10,
-  gameSpeed: 500,
-  grid: true,
+  snakeLength: 2,
+  gameSpeed: 300,
+  grid: false,
   wallCollision: false
 })
 
