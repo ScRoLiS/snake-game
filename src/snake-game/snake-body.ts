@@ -82,6 +82,12 @@ export class SnakeBody {
   }
 
   moveSnake() {
+
+    for (let i = this.snake.length - 1; i > 0; i--) {
+      this.snake[i].setY(this.snake[i - 1].getY())
+      this.snake[i].setX(this.snake[i - 1].getX())
+    }
+
     switch (this.direction) {
       case DirectionType.UP:
         this.moveUp()
@@ -100,11 +106,6 @@ export class SnakeBody {
     }
 
     this.checkWallCollision()
-
-    for (let i = this.snake.length - 1; i >= 1; i--) {
-      this.snake[i].setY(this.snake[i - 1].getY())
-      this.snake[i].setX(this.snake[i - 1].getX())
-    }
   }
 
   keyPressed(e: KeyboardEvent) {
