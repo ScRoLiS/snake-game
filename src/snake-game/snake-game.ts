@@ -78,6 +78,28 @@ export class Game {
     }
   }
 
+  renderLooseScreen(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = '#ffffffaa'
+    ctx.fillRect(0, 0, this.config.width, this.config.height)
+    ctx.fillStyle = '#aa0000'
+    ctx.textAlign = 'center'
+    ctx.font = '30px sans-serif'
+    ctx.fillText(`You loose!`, this.config.width / 2, this.config.height / 2)
+    ctx.font = '15px sans-serif'
+    ctx.fillText(`Score: ${this.score}`, this.config.width / 2, this.config.height / 2 + 24)
+  }
+
+  renderWinScreen(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = '#ffffffaa'
+    ctx.fillRect(0, 0, this.config.width, this.config.height)
+    ctx.fillStyle = '#008a00'
+    ctx.textAlign = 'center'
+    ctx.font = '30px sans-serif'
+    ctx.fillText(`You win!`, this.config.width / 2, this.config.height / 2)
+    ctx.font = '15px sans-serif'
+    ctx.fillText(`Score: ${this.score}`, this.config.width / 2, this.config.height / 2 + 24)
+  }
+
   gamePlay() {
     const { width, height, partSize } = this.config
     const fieldSize = (width / partSize) * (height / partSize)
@@ -86,19 +108,21 @@ export class Game {
       this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
       this.food.generateNewPosition(this.snake)
       this.score++
-      console.log(this.score);
-    }
-
-    if (this.snake.getLength() > fieldSize) {
-      console.log('WIN!', 'SCORE:', this.score);
-      this.stop()
     }
 
     this.render(this.canvas)
     this.snake.moveSnake()
 
+    if (this.snake.getLength() >= fieldSize) {
+      console.log('WIN!', 'SCORE:', this.score);
+      this.render(this.canvas)
+      this.renderWinScreen(this.canvas)
+      this.stop()
+    }
+
     if (this.snake.checkBodyCollision()) {
       console.log('FAIL!', 'SCORE:', this.score);
+      this.renderLooseScreen(this.canvas)
       this.stop()
     }
   }
