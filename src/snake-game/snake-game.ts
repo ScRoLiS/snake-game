@@ -43,12 +43,6 @@ export class Game {
     this.food.render(ctx)
     this.snake.render(ctx)
 
-    if (this.snake.checkFoodCollision(this.food)) {
-      this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
-      this.food.generateNewPosition(this.snake)
-      this.score++
-    }
-
     if (this.config.grid)
       this.renderGrid(ctx)
   }
@@ -79,17 +73,34 @@ export class Game {
     }
   }
 
-  start() {
+  gamePlay() {
     const { width, height, partSize } = this.config
 
-    console.log((width / partSize) * (height / partSize));
+    if (this.snake.checkFoodCollision(this.food)) {
+      this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
+      this.food.generateNewPosition(this.snake)
+      this.score++
+      console.log(this.score);
+    }
 
-    this.intervalId = setInterval(() => {
-      if (this.score + this.snake.getLength() >= (width / partSize) * (height / partSize)) {
-        console.log('WIN!', 'SCORE:', this.score + this.snake.getLength());
-        clearInterval(this.intervalId)
-      }
-      this.render(this.canvas)
-    }, this.config.gameSpeed)
+    this.render(this.canvas)
+    this.snake.moveSnake()
+
+    if (this.snake.getLength() >= (width / partSize) * (height / partSize)) {
+      console.log('WIN!', 'SCORE:', this.score);
+      this.stop()
+    }
+    if (this.snake.checkBodyCollision()) {
+      console.log('FAIL!', 'SCORE:', this.score);
+      this.stop()
+    }
+  }
+
+  start() {
+    this.intervalId = setInterval(this.gamePlay.bind(this), this.config.gameSpeed)
+  }
+
+  stop() {
+    clearInterval(this.intervalId)
   }
 }
