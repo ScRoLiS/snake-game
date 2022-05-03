@@ -25,8 +25,13 @@ export class Game {
   score: number = 0
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
-    const startSnakeX = config.width / config.partSize / 2
-    const startSnakeY = config.height / config.partSize / 2
+    const fieldW = config.width / config.partSize
+    const fieldH = config.height / config.partSize
+    const startSnakeX = fieldW % 2 ? Math.round(fieldW / 2 - 1) : fieldW / 2
+    const startSnakeY = fieldH % 2 ? Math.round(fieldH / 2 - 1) : fieldH / 2
+
+    canvas.setAttribute('width', config.width.toString())
+    canvas.setAttribute('height', config.height.toString())
 
     Game.config = config
 
@@ -75,21 +80,23 @@ export class Game {
 
   gamePlay() {
     const { width, height, partSize } = this.config
+    const fieldSize = (width / partSize) * (height / partSize)
 
-    if (this.snake.checkFoodCollision(this.food)) {
+    if (this.snake.checkFoodCollision(this.food) && this.snake.getLength() < fieldSize) {
       this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
       this.food.generateNewPosition(this.snake)
       this.score++
       console.log(this.score);
     }
 
-    this.render(this.canvas)
-    this.snake.moveSnake()
-
-    if (this.snake.getLength() >= (width / partSize) * (height / partSize)) {
+    if (this.snake.getLength() > fieldSize) {
       console.log('WIN!', 'SCORE:', this.score);
       this.stop()
     }
+
+    this.render(this.canvas)
+    this.snake.moveSnake()
+
     if (this.snake.checkBodyCollision()) {
       console.log('FAIL!', 'SCORE:', this.score);
       this.stop()
