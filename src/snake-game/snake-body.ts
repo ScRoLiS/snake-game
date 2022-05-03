@@ -9,6 +9,7 @@ export class SnakeBody {
   snake: Array<SnakePart>
   snakeHead: SnakeHead
   direction: Direction
+  keyBePressed: boolean = false
 
   constructor(x: number, y: number) {
     this.snake = new Array<SnakePart>()
@@ -24,7 +25,7 @@ export class SnakeBody {
     const snake = new SnakeBody(x, y)
 
     for (let i = 0; i < length; i++) {
-      snake.addPart(new SnakePart(x, y+1))
+      snake.addPart(new SnakePart(x, y + 1))
     }
 
     return snake
@@ -34,6 +35,8 @@ export class SnakeBody {
     [...this.snake].reverse().forEach(part => {
       part.render(ctx)
     })
+
+    this.keyBePressed = false
   }
 
   addPart(part: SnakePart) {
@@ -132,24 +135,27 @@ export class SnakeBody {
   }
 
   keyPressed(e: KeyboardEvent) {
-    switch (e.key) {
-      case Key.UP:
-        if (this.direction !== DirectionType.DOWN)
-          this.setDirection(DirectionType.UP)
-        break
-      case Key.DOWN:
-        if (this.direction !== DirectionType.UP)
-          this.setDirection(DirectionType.DOWN)
-        break
-      case Key.LEFT:
-        if (this.direction !== DirectionType.RIGHT)
-          this.setDirection(DirectionType.LEFT)
-        break
-      case Key.RIGHT:
-        if (this.direction !== DirectionType.LEFT)
-          this.setDirection(DirectionType.RIGHT)
-        break
-      default: break
+    if (!this.keyBePressed) {
+      this.keyBePressed = true
+      switch (e.key) {
+        case Key.UP:
+          if (this.direction !== DirectionType.DOWN)
+            this.setDirection(DirectionType.UP)
+          break
+        case Key.DOWN:
+          if (this.direction !== DirectionType.UP)
+            this.setDirection(DirectionType.DOWN)
+          break
+        case Key.LEFT:
+          if (this.direction !== DirectionType.RIGHT)
+            this.setDirection(DirectionType.LEFT)
+          break
+        case Key.RIGHT:
+          if (this.direction !== DirectionType.LEFT)
+            this.setDirection(DirectionType.RIGHT)
+          break
+        default: break
+      }
     }
   }
 }
