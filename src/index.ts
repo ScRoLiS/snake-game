@@ -3,12 +3,12 @@ import './index.css'
 
 const canvas = <HTMLCanvasElement>document.getElementById('canvas')
 const game = new Game(canvas, {
-  width: 320,
-  height: 320,
+  width: 15,
+  height: 20,
   partSize: 20,
   snakeLength: 2,
   gameSpeed: 300,
-  grid: true,
+  grid: false,
   wallCollision: false
 })
 
