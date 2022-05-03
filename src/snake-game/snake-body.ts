@@ -24,7 +24,7 @@ export class SnakeBody {
     const snake = new SnakeBody(x, y)
 
     for (let i = 0; i < length; i++) {
-      snake.addPart(new SnakePart(x, y))
+      snake.addPart(new SnakePart(x, y+1))
     }
 
     return snake
@@ -34,8 +34,6 @@ export class SnakeBody {
     [...this.snake].reverse().forEach(part => {
       part.render(ctx)
     })
-
-    this.moveSnake()
   }
 
   addPart(part: SnakePart) {
@@ -80,6 +78,14 @@ export class SnakeBody {
 
     if (this.snakeHead.getY() > bottomBorder)
       this.snakeHead.setY(0)
+  }
+
+  checkBodyCollision() {
+    for (let i = 1; i < this.snake.length; i++) {
+      if (this.snakeHead.getX() === this.snake[i].getX() && this.snakeHead.getY() === this.snake[i].getY())
+        return true
+    }
+    return false
   }
 
   moveUp() {
