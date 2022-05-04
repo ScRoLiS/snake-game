@@ -9,18 +9,22 @@ let config: GameConfig = {
   snakeLength: 2,
   gameSpeed: 300,
   grid: false,
-  wallCollision: false
+  wallCollision: false,
+  bodyColor: '#000000',
+  headColor: '#892f2d',
+  bgColor: '#879272'
 }
 
 const form = <HTMLFormElement>document.getElementById('config')
 const canvas = <HTMLCanvasElement>document.getElementById('canvas')
 let game = new Game(canvas, { ...config })
+game.start()
 
 const toInteger = (str: any): number => {
   return parseInt(str)
 }
 
-form.addEventListener('change', () => {
+form.addEventListener('input', () => {
   const formData = new FormData(form)
 
   config['width'] = toInteger(formData.get('width'))
@@ -30,6 +34,9 @@ form.addEventListener('change', () => {
   config['gameSpeed'] = toInteger(formData.get('gameSpeed'))
   config['grid'] = formData.get('grid') ? true : false
   config['wallCollision'] = formData.get('wallCollision') ? true : false
+  config['bgColor'] = formData.get('bgColor').toString()
+  config['headColor'] = formData.get('headColor').toString()
+  config['bodyColor'] = formData.get('bodyColor').toString()
 })
 
 

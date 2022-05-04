@@ -9,7 +9,7 @@ export class SnakePart {
   constructor(x: number, y: number) {
     this.setX(x)
     this.setY(y)
-    this.setColor('#000000')
+    this.setColor(Game.config.bodyColor)
   }
 
   render(ctx: CanvasRenderingContext2D) {
@@ -18,7 +18,7 @@ export class SnakePart {
 
     ctx.fillStyle = this.color
     ctx.fillRect(this.x * partSize, this.y * partSize, partSize, partSize)
-    ctx.strokeStyle = '#879272'
+    ctx.strokeStyle = Game.config.bgColor
     ctx.lineWidth = borderSize
     ctx.strokeRect(this.x * partSize + borderSize * 2, this.y * partSize + borderSize * 2, partSize - borderSize * 4, partSize - borderSize * 4)
     ctx.lineWidth = 2.5

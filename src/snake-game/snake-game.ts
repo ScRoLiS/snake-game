@@ -9,7 +9,10 @@ export interface GameConfig {
   partSize: number,
   gameSpeed: number,
   grid: boolean,
-  wallCollision: boolean
+  wallCollision: boolean,
+  headColor: string,
+  bodyColor: string,
+  bgColor: string
 }
 
 export class Game {
@@ -59,7 +62,7 @@ export class Game {
   clearCanvas(ctx: CanvasRenderingContext2D) {
     const { width, height } = this.config
 
-    ctx.fillStyle = '#879272'
+    ctx.fillStyle = Game.config.bgColor
     ctx.fillRect(0, 0, width, height)
   }
 

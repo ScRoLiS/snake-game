@@ -5,6 +5,6 @@ export class SnakeHead extends SnakePart {
 
   constructor(x: number, y: number) {
     super(x, y)
-    this.setColor('#892f2d')
+    this.setColor(Game.config.headColor)
   }
 }
