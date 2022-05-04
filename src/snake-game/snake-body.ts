@@ -35,8 +35,6 @@ export class SnakeBody {
     [...this.snake].reverse().forEach(part => {
       part.render(ctx)
     })
-
-    this.keyBePressed = false
   }
 
   addPart(part: SnakePart) {
@@ -65,22 +63,41 @@ export class SnakeBody {
     return false
   }
 
-  checkWallCollision() {
-    const { width, height, partSize } = Game.config
+  checkWallCollision(): boolean {
+    const { width, height, partSize, wallCollision } = Game.config
     const rightBorder = width / partSize - 1
     const bottomBorder = height / partSize - 1
 
-    if (this.snakeHead.getX() < 0)
-      this.snakeHead.setX(rightBorder)
+    if (this.snakeHead.getX() < 0) {
+      if (!wallCollision)
+        this.snakeHead.setX(rightBorder)
+      else
+        return true
+    }
 
-    if (this.snakeHead.getX() > rightBorder)
-      this.snakeHead.setX(0)
+    if (this.snakeHead.getX() > rightBorder) {
+      if (!wallCollision)
+        this.snakeHead.setX(0)
+      else
+        return true
+    }
 
-    if (this.snakeHead.getY() < 0)
-      this.snakeHead.setY(bottomBorder)
+    if (this.snakeHead.getY() < 0) {
+      if (!wallCollision)
+        this.snakeHead.setY(bottomBorder)
+      else
+        return true
 
-    if (this.snakeHead.getY() > bottomBorder)
-      this.snakeHead.setY(0)
+    }
+
+    if (this.snakeHead.getY() > bottomBorder) {
+      if (!wallCollision)
+        this.snakeHead.setY(0)
+      else
+        return true
+    }
+
+    return false
   }
 
   checkBodyCollision() {
@@ -131,7 +148,7 @@ export class SnakeBody {
         break;
     }
 
-    this.checkWallCollision()
+    this.keyBePressed = false
   }
 
   keyPressed(e: KeyboardEvent) {
