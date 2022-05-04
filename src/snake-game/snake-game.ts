@@ -134,6 +134,7 @@ export class Game {
   }
 
   start() {
+    this.render(this.canvas)
     this.intervalId = setInterval(this.gamePlay.bind(this), this.config.gameSpeed)
   }
 
