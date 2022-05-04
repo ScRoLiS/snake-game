@@ -24,7 +24,8 @@ export class Game {
 
   snake: SnakeBody
   food: SnakeFood
-  intervalId: NodeJS.Timer
+  gamePlayId: NodeJS.Timer
+  renderId: NodeJS.Timer
   score: number = 0
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
@@ -123,11 +124,7 @@ export class Game {
     const { width, height, partSize } = Game.config
     const fieldSize = (width / partSize) * (height / partSize)
 
-    if (this.snake.checkFoodCollision(this.food) && this.snake.getLength() < fieldSize) {
-      this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
-      this.food.generateNewPosition(this.snake)
-      this.score++
-    }
+    this.snake.moveSnake()
 
     if (this.snake.getLength() >= fieldSize) {
       this.win()
@@ -139,16 +136,26 @@ export class Game {
       return
     }
 
-    this.render(this.canvas)
-    this.snake.moveSnake()
+    if (this.snake.checkWallCollision()) {
+      this.lose()
+      return
+    }
+
+    if (this.snake.checkFoodCollision(this.food) && this.snake.getLength() < fieldSize) {
+      this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
+      this.food.generateNewPosition(this.snake)
+      this.score++
+    }
+
   }
 
   start() {
-    this.render(this.canvas)
-    this.intervalId = setInterval(this.gamePlay.bind(this), Game.config.gameSpeed)
+    this.gamePlayId = setInterval(this.gamePlay.bind(this), Game.config.gameSpeed)
+    this.renderId = setInterval(this.render.bind(this, this.canvas), 1)
   }
 
   stop() {
-    clearInterval(this.intervalId)
+    clearInterval(this.gamePlayId)
+    clearInterval(this.renderId)
   }
 }
