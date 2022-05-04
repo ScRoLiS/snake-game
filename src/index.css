@@ -31,6 +31,8 @@ body {
 
 .control__wrapper--row {
   flex-direction: row;
+  align-items: center;
+  gap: 5px;
 }
 
 #canvas {
