@@ -109,7 +109,6 @@ export class Game {
 
   win() {
     console.log('WIN!', 'SCORE:', this.score);
-    this.render(this.canvas)
     this.renderWinScreen(this.canvas)
     this.stop()
   }
@@ -131,12 +130,7 @@ export class Game {
       return
     }
 
-    if (this.snake.checkBodyCollision()) {
-      this.lose()
-      return
-    }
-
-    if (this.snake.checkWallCollision()) {
+    if (this.snake.checkBodyCollision() || this.snake.checkWallCollision()) {
       this.lose()
       return
     }
