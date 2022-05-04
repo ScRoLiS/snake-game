@@ -2,6 +2,11 @@ import { SnakeBody } from "./snake-body"
 import { SnakeFood } from "./snake-food"
 import { SnakePart } from "./snake-part"
 
+import lSound from '../assets/sounds/loose.mp3'
+import wSound from '../assets/sounds/win.mp3'
+import bSound from '../assets/sounds/body_collide.mp3'
+import fSound from '../assets/sounds/food_eaten.mp3'
+
 export interface GameConfig {
   width: number,
   height: number,
@@ -28,6 +33,11 @@ export class Game {
   renderId: NodeJS.Timer
   score: number = 0
 
+  winSound: HTMLAudioElement
+  bodySound: HTMLAudioElement
+  foodSound: HTMLAudioElement
+  looseSound: HTMLAudioElement
+
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
 
     const fieldW = config.width
@@ -42,6 +52,11 @@ export class Game {
     canvas.setAttribute('height', config.height.toString())
 
     Game.config = config
+    
+    this.winSound = new Audio(wSound)
+    this.looseSound = new Audio(lSound)
+    this.bodySound = new Audio(bSound)
+    this.foodSound = new Audio(fSound)
 
     this.canvas = canvas.getContext('2d')
     this.snake = SnakeBody.createSnake(config.snakeLength, startSnakeX, startSnakeY)
@@ -110,13 +125,18 @@ export class Game {
   win() {
     console.log('WIN!', 'SCORE:', this.score);
     this.renderWinScreen(this.canvas)
+    this.winSound.play()
     this.stop()
+
+
   }
 
   lose() {
     console.log('FAIL!', 'SCORE:', this.score);
     this.renderLooseScreen(this.canvas)
+    this.looseSound.play()
     this.stop()
+
   }
 
   gamePlay() {
@@ -131,6 +151,7 @@ export class Game {
     }
 
     if (this.snake.checkBodyCollision() || this.snake.checkWallCollision()) {
+      this.bodySound.play()
       this.lose()
       return
     }
@@ -138,6 +159,7 @@ export class Game {
     if (this.snake.checkFoodCollision(this.food) && this.snake.getLength() < fieldSize) {
       this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
       this.food.generateNewPosition(this.snake)
+      this.foodSound.play()
       this.score++
     }
 

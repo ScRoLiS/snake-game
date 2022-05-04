@@ -29,7 +29,16 @@ module.exports = {
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      }
+      },
+      {
+        test: /\.mp3$/i,
+        use: {
+          loader: 'file-loader',
+          options: {
+            outputPath: 'assets/sounds'
+          }
+        }
+      },
     ]
   },
   plugins: [new HtmlWebpackPlugin({
