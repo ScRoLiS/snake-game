@@ -42,7 +42,6 @@ export class Game {
 
     Game.config = config
 
-    this.config = config
     this.canvas = canvas.getContext('2d')
     this.snake = SnakeBody.createSnake(config.snakeLength, startSnakeX, startSnakeY)
     this.food = new SnakeFood()
@@ -55,19 +54,19 @@ export class Game {
     this.food.render(ctx)
     this.snake.render(ctx)
 
-    if (this.config.grid)
+    if (Game.config.grid)
       this.renderGrid(ctx)
   }
 
   clearCanvas(ctx: CanvasRenderingContext2D) {
-    const { width, height } = this.config
+    const { width, height } = Game.config
 
     ctx.fillStyle = Game.config.bgColor
     ctx.fillRect(0, 0, width, height)
   }
 
   renderGrid(ctx: CanvasRenderingContext2D) {
-    const { partSize: snakeSize, width, height } = this.config
+    const { partSize: snakeSize, width, height } = Game.config
 
     ctx.strokeStyle = '#000000'
     ctx.lineWidth = 1.5
@@ -87,28 +86,41 @@ export class Game {
 
   renderLooseScreen(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = '#ffffffaa'
-    ctx.fillRect(0, 0, this.config.width, this.config.height)
+    ctx.fillRect(0, 0, Game.config.width, Game.config.height)
     ctx.fillStyle = '#aa0000'
     ctx.textAlign = 'center'
     ctx.font = '30px sans-serif'
-    ctx.fillText(`You loose!`, this.config.width / 2, this.config.height / 2)
+    ctx.fillText(`You loose!`, Game.config.width / 2, Game.config.height / 2)
     ctx.font = '15px sans-serif'
-    ctx.fillText(`Score: ${this.score}`, this.config.width / 2, this.config.height / 2 + 24)
+    ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + 24)
   }
 
   renderWinScreen(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = '#ffffffaa'
-    ctx.fillRect(0, 0, this.config.width, this.config.height)
+    ctx.fillRect(0, 0, Game.config.width, Game.config.height)
     ctx.fillStyle = '#008a00'
     ctx.textAlign = 'center'
     ctx.font = '30px sans-serif'
-    ctx.fillText(`You win!`, this.config.width / 2, this.config.height / 2)
+    ctx.fillText(`You win!`, Game.config.width / 2, Game.config.height / 2)
     ctx.font = '15px sans-serif'
-    ctx.fillText(`Score: ${this.score}`, this.config.width / 2, this.config.height / 2 + 24)
+    ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + 24)
+  }
+
+  win() {
+    console.log('WIN!', 'SCORE:', this.score);
+    this.render(this.canvas)
+    this.renderWinScreen(this.canvas)
+    this.stop()
+  }
+
+  lose() {
+    console.log('FAIL!', 'SCORE:', this.score);
+    this.renderLooseScreen(this.canvas)
+    this.stop()
   }
 
   gamePlay() {
-    const { width, height, partSize } = this.config
+    const { width, height, partSize } = Game.config
     const fieldSize = (width / partSize) * (height / partSize)
 
     if (this.snake.checkFoodCollision(this.food) && this.snake.getLength() < fieldSize) {
@@ -118,17 +130,12 @@ export class Game {
     }
 
     if (this.snake.getLength() >= fieldSize) {
-      console.log('WIN!', 'SCORE:', this.score);
-      this.render(this.canvas)
-      this.renderWinScreen(this.canvas)
-      this.stop()
+      this.win()
       return
     }
 
     if (this.snake.checkBodyCollision()) {
-      console.log('FAIL!', 'SCORE:', this.score);
-      this.renderLooseScreen(this.canvas)
-      this.stop()
+      this.lose()
       return
     }
 
@@ -138,7 +145,7 @@ export class Game {
 
   start() {
     this.render(this.canvas)
-    this.intervalId = setInterval(this.gamePlay.bind(this), this.config.gameSpeed)
+    this.intervalId = setInterval(this.gamePlay.bind(this), Game.config.gameSpeed)
   }
 
   stop() {
