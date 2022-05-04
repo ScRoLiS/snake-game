@@ -1,3 +1,7 @@
+* {
+  font-family: sans-serif;
+}
+
 body {
   margin: 0;
   display: grid;
@@ -6,7 +10,31 @@ body {
   min-height: 100vh;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.control__wrapper--row {
+  flex-direction: row;
+}
+
 #canvas {
   border: 1px solid black;
   box-sizing: border-box;
+  height: auto;
 }

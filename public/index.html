@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SnakeGame</title>
 </head>
+
 <body>
-  <canvas id="canvas"></canvas>
+  <div class="container">
+    <canvas id="canvas"></canvas>
+    <form id="config" class="control">
+      <div class="control__wrapper">
+        <label for="width">Game field width</label>
+        <input value="15" name="width" type="number" />
+      </div>
+      <div class="control__wrapper">
+        <label for="height">Game field height</label>
+        <input value="20" name="height" type="number" />
+      </div>
+      <div class="control__wrapper">
+        <label for="partSize">Snake part size</label>
+        <input value="20" name="partSize" type="number" />
+      </div>
+      <div class="control__wrapper">
+        <label for="snakeLength">Snake length</label>
+        <input value="2" name="snakeLength" type="number" />
+      </div>
+      <div class="control__wrapper">
+        <label for="gameSpeed">Game speed (ms)</label>
+        <input value="300" name="gameSpeed" type="number" />
+      </div>
+      <div class="control__wrapper control__wrapper--row">
+        <input id="grid" name="grid" type="checkbox" />
+        <label for="grid">Grid</label>
+      </div>
+      <div class="control__wrapper control__wrapper--row">
+        <input id="wallCollision" name="wallCollision" type="checkbox" />
+        <label for="wallCollision">Wall collision</label>
+      </div>
+      <div class="control__wrapper control__wrapper--row">
+        <button type="submit">Start game</button>
+      </div>
+    </form>
+  </div>
 </body>
+
 </html>
