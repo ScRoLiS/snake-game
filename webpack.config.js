@@ -27,18 +27,23 @@ module.exports = {
         exclude: '/node_modules/',
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.mp3$/i,
-        use: {
-          loader: 'file-loader',
-          options: {
-            outputPath: 'assets/sounds'
-          }
+        test: /\.mp3$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/sounds/[hash][ext]'
         }
       },
+      {
+        test: /\.woff$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[hash][ext]'
+        }
+      }
     ]
   },
   plugins: [new HtmlWebpackPlugin({
