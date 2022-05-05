@@ -52,7 +52,7 @@ export class Game {
     canvas.setAttribute('height', config.height.toString())
 
     Game.config = config
-    
+
     this.winSound = new Audio(wSound)
     this.looseSound = new Audio(lSound)
     this.bodySound = new Audio(bSound)
@@ -105,9 +105,9 @@ export class Game {
     ctx.fillRect(0, 0, Game.config.width, Game.config.height)
     ctx.fillStyle = '#aa0000'
     ctx.textAlign = 'center'
-    ctx.font = '30px sans-serif'
+    ctx.font = '30px gameover'
     ctx.fillText(`You loose!`, Game.config.width / 2, Game.config.height / 2)
-    ctx.font = '15px sans-serif'
+    ctx.font = '15px gameover'
     ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + 24)
   }
 
@@ -116,9 +116,9 @@ export class Game {
     ctx.fillRect(0, 0, Game.config.width, Game.config.height)
     ctx.fillStyle = '#008a00'
     ctx.textAlign = 'center'
-    ctx.font = '30px sans-serif'
+    ctx.font = '30px gameover'
     ctx.fillText(`You win!`, Game.config.width / 2, Game.config.height / 2)
-    ctx.font = '15px sans-serif'
+    ctx.font = '15px gameover'
     ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + 24)
   }
 
@@ -127,8 +127,6 @@ export class Game {
     this.renderWinScreen(this.canvas)
     this.winSound.play()
     this.stop()
-
-
   }
 
   lose() {
@@ -136,7 +134,6 @@ export class Game {
     this.renderLooseScreen(this.canvas)
     this.looseSound.play()
     this.stop()
-
   }
 
   gamePlay() {

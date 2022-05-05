@@ -1,5 +1,11 @@
+@font-face {
+  src: url("./assets/fonts/gameover.woff") format('woff');
+  font-family: "gameover";
+  font-weight: 400;
+}
+
 * {
-  font-family: sans-serif;
+  font-family: "gameover";
 }
 
 body {
