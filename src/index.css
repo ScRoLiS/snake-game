@@ -1,11 +1,12 @@
 @font-face {
-  src: url("./assets/fonts/gameover.woff") format('woff');
+  src: url("./assets/fonts/Retro-Gaming.woff") format('woff');
   font-family: "gameover";
   font-weight: 400;
 }
 
 * {
   font-family: "gameover";
+  font-size: 12px;
 }
 
 body {
