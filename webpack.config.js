@@ -5,8 +5,17 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: './src/index.ts',
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: (pathData) => {
+      const filepath = path
+        .dirname(pathData.filename)
+        .split("/")
+        .slice(1)
+        .join("/");
+      return `${filepath}/[hash][ext]`;
+    },
+    clean: true
   },
   devServer: {
     static: {
@@ -31,24 +40,16 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.mp3$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/sounds/[hash][ext]'
-        }
-      },
-      {
-        test: /\.woff$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/fonts/[hash][ext]'
-        }
+        test: /\.(mp3|woff)$/,
+        type: 'asset/resource'
       }
     ]
   },
   plugins: [new HtmlWebpackPlugin({
     template: './public/index.html',
-  }), new MiniCssExtractPlugin()],
+  }), new MiniCssExtractPlugin({
+    filename: 'bundle.css'
+  })],
   resolve: {
     extensions: ['.ts', '.js']
   }
