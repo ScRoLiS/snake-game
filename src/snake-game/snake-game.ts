@@ -154,12 +154,26 @@ export class Game {
     }
 
     if (this.snake.checkFoodCollision(this.food) && this.snake.getLength() < fieldSize) {
+      this.stopSound(this.foodSound)
       this.snake.addPart(new SnakePart(this.snake.getLastX(), this.snake.getLastY()))
       this.food.generateNewPosition(this.snake)
       this.foodSound.play()
       this.score++
     }
 
+  }
+
+  stopSound(sound: HTMLAudioElement) {
+    sound.pause()
+    sound.currentTime = 0
+  }
+
+  setVolume(volume: number) {
+    volume = volume / 100
+    this.winSound.volume = volume
+    this.looseSound.volume = volume
+    this.foodSound.volume = volume
+    this.bodySound.volume = volume
   }
 
   start() {

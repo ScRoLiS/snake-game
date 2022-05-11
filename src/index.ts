@@ -5,9 +5,15 @@ import './index.css'
 
 const form = <HTMLFormElement>document.getElementById('config')
 const canvas = <HTMLCanvasElement>document.getElementById('canvas')
+const volume = <HTMLInputElement>document.getElementById('volume')
 
 let config: GameConfig = createConfig(form)
 let game = new Game(canvas, { ...config })
+game.setVolume(parseInt(volume.value))
+
+volume.addEventListener('input', (e) => {
+  game.setVolume(parseInt(volume.value))
+})
 
 form.addEventListener('input', () => {
   config = createConfig(form)
@@ -17,7 +23,10 @@ form.addEventListener('submit', (e) => {
   e.preventDefault()
 
   game.stop()
+  game.stopSound(game.looseSound)
+  game.stopSound(game.winSound)
   game = new Game(canvas, { ...config })
+  game.setVolume(parseInt(volume.value))
   game.start()
 })
 
