@@ -100,38 +100,28 @@ export class Game {
     }
   }
 
-  renderLooseScreen(ctx: CanvasRenderingContext2D) {
+  renderEndScreen(ctx: CanvasRenderingContext2D, text: string, color: string) {
+    let fontSize = Game.config.width / Game.config.partSize
     ctx.fillStyle = '#ffffffaa'
     ctx.fillRect(0, 0, Game.config.width, Game.config.height)
-    ctx.fillStyle = '#aa0000'
+    ctx.fillStyle = color
     ctx.textAlign = 'center'
-    ctx.font = '30px gameover'
-    ctx.fillText(`You loose!`, Game.config.width / 2, Game.config.height / 2)
-    ctx.font = '15px gameover'
-    ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + 24)
-  }
-
-  renderWinScreen(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = '#ffffffaa'
-    ctx.fillRect(0, 0, Game.config.width, Game.config.height)
-    ctx.fillStyle = '#008a00'
-    ctx.textAlign = 'center'
-    ctx.font = '30px gameover'
-    ctx.fillText(`You win!`, Game.config.width / 2, Game.config.height / 2)
-    ctx.font = '15px gameover'
-    ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + 24)
+    ctx.font = `${fontSize * 1.5}px gameover`
+    ctx.fillText(text, Game.config.width / 2, Game.config.height / 2)
+    ctx.font = `${fontSize}px gameover`
+    ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + fontSize)
   }
 
   win() {
     console.log('WIN!', 'SCORE:', this.score);
-    this.renderWinScreen(this.canvas)
+    this.renderEndScreen(this.canvas, 'You win!', '#00aa00')
     this.winSound.play()
     this.stop()
   }
 
   lose() {
     console.log('FAIL!', 'SCORE:', this.score);
-    this.renderLooseScreen(this.canvas)
+    this.renderEndScreen(this.canvas, 'You loose!', '#aa0000')
     this.looseSound.play()
     this.stop()
   }
@@ -160,7 +150,6 @@ export class Game {
       this.foodSound.play()
       this.score++
     }
-
   }
 
   stopSound(sound: HTMLAudioElement) {

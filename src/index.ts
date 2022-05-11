@@ -34,7 +34,7 @@ game.start()
 
 
 function toInteger(str: any): number {
-  return parseInt(str)
+  return Math.abs(parseInt(str))
 }
 
 function createConfig(form: HTMLFormElement): GameConfig {
