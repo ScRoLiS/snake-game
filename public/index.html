@@ -10,8 +10,12 @@
 
 <body>
   <div class="container">
-    <canvas id="canvas"></canvas>
-    <form id="config" class="control">
+    <div class="wrapper">
+      <canvas id="canvas"></canvas>
+      <button id="show-controls">show/hide controls</button>
+    </div>
+    
+    <form id="config" class="control hide">
       <div class="control__wrapper">
         <label for="width">Game width</label>
         <input value="15" name="width" type="number" />

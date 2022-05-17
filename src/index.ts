@@ -6,10 +6,15 @@ import './index.css'
 const form = <HTMLFormElement>document.getElementById('config')
 const canvas = <HTMLCanvasElement>document.getElementById('canvas')
 const volume = <HTMLInputElement>document.getElementById('volume')
+const showControls = <HTMLButtonElement>document.getElementById('show-controls')
 
 let config: GameConfig = createConfig(form)
 let game = new Game(canvas, { ...config })
 game.setVolume(parseInt(volume.value))
+
+showControls.addEventListener('click', (e) => {
+  form.classList.toggle('hide')
+})
 
 volume.addEventListener('input', (e) => {
   game.setVolume(parseInt(volume.value))
