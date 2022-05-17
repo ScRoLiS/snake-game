@@ -37,7 +37,6 @@ form.addEventListener('submit', (e) => {
 
 game.start()
 
-
 function toInteger(str: any): number {
   return Math.abs(parseInt(str))
 }
