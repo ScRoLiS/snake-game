@@ -57,6 +57,7 @@ function createConfig(form: HTMLFormElement): GameConfig {
   config['bgColor'] = formData.get('bgColor').toString()
   config['headColor'] = formData.get('headColor').toString()
   config['bodyColor'] = formData.get('bodyColor').toString()
+  config['foodColor'] = formData.get('foodColor').toString()
 
   return config
 }

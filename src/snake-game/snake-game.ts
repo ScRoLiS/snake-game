@@ -17,7 +17,8 @@ export interface GameConfig {
   wallCollision: boolean,
   headColor: string,
   bodyColor: string,
-  bgColor: string
+  bgColor: string,
+  foodColor: string
 }
 
 export class Game {

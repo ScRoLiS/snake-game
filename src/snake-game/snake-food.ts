@@ -5,7 +5,7 @@ import { SnakePart } from "./snake-part";
 export class SnakeFood extends SnakePart {
   constructor() {
     super(3, 3)
-    this.setColor('#0a4622')
+    this.setColor(Game.config.foodColor)
   }
 
   generateNewPosition(snake: SnakeBody) {
