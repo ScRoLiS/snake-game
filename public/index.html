@@ -11,10 +11,16 @@
 <body>
   <div class="container">
     <div class="wrapper">
-      <canvas id="canvas"></canvas>
-      <button id="show-controls">show/hide controls</button>
+      <div class="wrapper__canvas">
+        <canvas id="canvas"></canvas>
+        <button class="button button--game button--up">↑</button>
+        <button class="button button--game button--down">↓</button>
+        <button class="button button--game button--left">←</button>
+        <button class="button button--game button--right">→</button>
+      </div>
+      <button id="show-controls" class="button">show/hide controls</button>
     </div>
-    
+
     <form id="config" class="control hide">
       <div class="control__wrapper">
         <label for="width">Game width</label>
@@ -65,7 +71,7 @@
         <input id="volume" min="0" max="100" value="50" name="volume" type="range" />
       </div>
       <div class="control__wrapper control__wrapper--row">
-        <button type="submit">Restart!</button>
+        <button class="button" type="submit">Restart!</button>
       </div>
     </form>
   </div>

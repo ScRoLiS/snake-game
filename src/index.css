@@ -17,6 +17,53 @@ body {
   min-height: 100vh;
 }
 
+.wrapper__canvas {
+  position: relative;
+}
+
+.button {
+  color: #ffffff;
+  background-color: #3751e6;
+  padding: 10px 25px;
+  border-radius: 5px;
+  border: none;
+}
+
+.button:hover {
+  background-color: #6097e9;
+  cursor: pointer;
+}
+
+.button--game {
+  opacity: 0.1;
+  position: absolute;
+}
+
+.button--up {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.button--down {
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.button--left {
+  top: 50%;
+  left: 0;
+    transform: translateY(-50%);
+}
+
+.button--right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -43,9 +90,7 @@ body {
 }
 
 #canvas {
-  border: 1px solid black;
   box-sizing: border-box;
-  height: auto;
 }
 
 /* Chrome, Safari, Edge, Opera */

@@ -2,15 +2,24 @@ import { GameConfig } from './snake-game/snake-game';
 import { Game } from './snake-game'
 import './index.css'
 
-
 const form = <HTMLFormElement>document.getElementById('config')
 const canvas = <HTMLCanvasElement>document.getElementById('canvas')
 const volume = <HTMLInputElement>document.getElementById('volume')
 const showControls = <HTMLButtonElement>document.getElementById('show-controls')
 
+const buttonUp = document.querySelector('.button--up')
+const buttonDown = document.querySelector('.button--down')
+const buttonLeft = document.querySelector('.button--left')
+const buttonRight = document.querySelector('.button--right')
+
 let config: GameConfig = createConfig(form)
 let game = new Game(canvas, { ...config })
 game.setVolume(parseInt(volume.value))
+
+buttonUp.addEventListener('click', () => { game.snake.keyPressed(<KeyboardEvent>{ key: 'ArrowUp' }) })
+buttonDown.addEventListener('click', () => { game.snake.keyPressed(<KeyboardEvent>{ key: 'ArrowDown' }) })
+buttonLeft.addEventListener('click', () => { game.snake.keyPressed(<KeyboardEvent>{ key: 'ArrowLeft' }) })
+buttonRight.addEventListener('click', () => { game.snake.keyPressed(<KeyboardEvent>{ key: 'ArrowRight' }) })
 
 showControls.addEventListener('click', (e) => {
   form.classList.toggle('hide')

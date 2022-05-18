@@ -165,7 +165,7 @@ export class Game {
     this.foodSound.volume = volume
     this.bodySound.volume = volume
   }
-
+  
   start() {
     this.gamePlayId = setInterval(this.gamePlay.bind(this), Game.config.gameSpeed)
     this.renderId = setInterval(this.render.bind(this, this.canvas), 1)
