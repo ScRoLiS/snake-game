@@ -5,7 +5,7 @@
 }
 
 * {
-  font-family: "gameover";
+  font-family: sans-serif;
   font-size: 12px;
 }
 
@@ -35,33 +35,36 @@ body {
 }
 
 .button--game {
-  opacity: 0.1;
+  opacity: 0.4;
   position: absolute;
 }
 
 .button--up {
   top: 0;
   left: 50%;
+  border-radius: 0 0 5px 5px;
   transform: translateX(-50%);
 }
 
 .button--down {
   bottom: 4px;
   left: 50%;
+  border-radius: 5px 5px 0 0;
   transform: translateX(-50%);
 }
 
 .button--left {
   top: 50%;
   left: 0;
-    transform: translateY(-50%);
+  border-radius: 0 5px 5px 0;
+  transform: translateY(-50%);
 }
 
 .button--right {
   top: 50%;
   right: 0;
+  border-radius: 5px 0 0 5px;
   transform: translateY(-50%);
-
 }
 
 .container {
