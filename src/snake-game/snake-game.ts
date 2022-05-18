@@ -84,17 +84,14 @@ export class Game {
 
   renderGrid(ctx: CanvasRenderingContext2D) {
     const { partSize: snakeSize, width, height } = Game.config
+    const size = width > height ? width : height
 
     ctx.strokeStyle = '#000000'
     ctx.lineWidth = 1.5
-    for (let i = 0; i <= width / snakeSize; i++) {
+    for (let i = 0; i <= size / snakeSize; i++) {
       ctx.beginPath();
       ctx.moveTo(i * snakeSize, 0);
       ctx.lineTo(i * snakeSize, height);
-      ctx.stroke()
-    }
-    for (let i = 0; i <= height / snakeSize; i++) {
-      ctx.beginPath();
       ctx.moveTo(0, i * snakeSize);
       ctx.lineTo(width, i * snakeSize);
       ctx.stroke()
@@ -165,7 +162,7 @@ export class Game {
     this.foodSound.volume = volume
     this.bodySound.volume = volume
   }
-  
+
   start() {
     this.gamePlayId = setInterval(this.gamePlay.bind(this), Game.config.gameSpeed)
     this.renderId = setInterval(this.render.bind(this, this.canvas), 1)
