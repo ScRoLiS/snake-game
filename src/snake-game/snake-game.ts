@@ -104,9 +104,9 @@ export class Game {
     ctx.fillRect(0, 0, Game.config.width, Game.config.height)
     ctx.fillStyle = color
     ctx.textAlign = 'center'
-    ctx.font = `${fontSize * 1.5}px gameover`
+    ctx.font = `${fontSize * 1.5}px sans-serif`
     ctx.fillText(text, Game.config.width / 2, Game.config.height / 2)
-    ctx.font = `${fontSize}px gameover`
+    ctx.font = `${fontSize}px sans-serif`
     ctx.fillText(`Score: ${this.score}`, Game.config.width / 2, Game.config.height / 2 + fontSize)
   }
 
